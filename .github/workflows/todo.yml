@@ -24,6 +24,7 @@ jobs:
         run: terraform init -input=false
       - name: Terraform fmt
         id: fmt
+        working-directory: todo/todoapp_infra
         run: terraform fmt -check
         continue-on-error: true
       - name: Terraform Validate
