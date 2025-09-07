@@ -21,20 +21,20 @@ jobs:
           terraform_version: "1.1.7"
       - name: Terraform Init
         id: init
-        working-directory: todo/todoapp_infra
+        working-directory: todoapp_infra
         run: terraform init -input=false
       - name: Terraform fmt
         id: fmt
-        working-directory: todo/todoapp_infra
+        working-directory: todoapp_infra
         run: terraform fmt -check
         continue-on-error: true
       - name: Terraform Validate
         id: validate
-        working-directory: todo/todoapp_infra
+        working-directory: todoapp_infra
         run: terraform validate 
       - name: Terraform Plan
         id: plan
-        working-directory: todo/todoapp_infra
+        working-directory: todoapp_infra
         run: terraform plan 
         # continue-on-error: true
      
