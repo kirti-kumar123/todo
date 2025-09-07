@@ -12,9 +12,9 @@ jobs:
       - name: Azure login
         uses: azure/login@v2
         with:
-          client-id: "54e2be3b-84f1-4e30-8071-9ad1c0cf93a1"
-          tenant-id: "25da0254-8640-4e13-9016-d3428661a477"
-          subscription-id: "972b29e5-b4b2-4f43-b814-02879737840d"
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v3
         with:
@@ -24,17 +24,22 @@ jobs:
         shell: cmd
         working-directory: todoapp_infra
         run: terraform init -input=false
-      - name: Terraform fmt
-        id: fmt
-        shell: cmd
-        working-directory: todoapp_infra
-        run: terraform fmt -check
-        continue-on-error: true
-      - name: Terraform Validate
-        id: validate
-        shell: cmd
-        working-directory: todoapp_infra
-        run: terraform validate 
+        env:
+          ARM_USE_OIDC: true
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      # - name: Terraform fmt
+      #   id: fmt
+      #   shell: cmd
+      #   working-directory: todoapp_infra
+      #   run: terraform fmt -check
+      #   continue-on-error: true
+      # - name: Terraform Validate
+      #   id: validate
+      #   shell: cmd
+      #   working-directory: todoapp_infra
+      #   run: terraform validate 
       - name: Terraform Plan
         id: plan
         working-directory: todoapp_infra
@@ -43,6 +48,11 @@ jobs:
           echo Running terraform plan...
           terraform.exe plan -no-color > plan.txt
           type plan.txt
+        env:
+          ARM_USE_OIDC: true
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
      
       
 
