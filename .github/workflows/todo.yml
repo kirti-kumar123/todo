@@ -35,10 +35,11 @@ jobs:
       - name: Terraform Plan
         id: plan
         working-directory: todoapp_infra
-        shell: bash
+        shell: cmd
         run: |
-          echo "Running terraform plan..."
-          terraform plan -no-color | tee plan.txt
+          echo Running terraform plan...
+          terraform.exe plan -no-color > plan.txt
+          type plan.txt
      
       
 
