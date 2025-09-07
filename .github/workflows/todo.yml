@@ -15,10 +15,20 @@ jobs:
           client-id: "54e2be3b-84f1-4e30-8071-9ad1c0cf93a1"
           tenant-id: "25da0254-8640-4e13-9016-d3428661a477"
           subscription-id: "972b29e5-b4b2-4f43-b814-02879737840d"
-      - name: Install Terraform
-        uses: little-core-labs/install-terraform@v2.0.0
+      - name: Terraform Installation
+        uses: hashicorp/setup-terraform@v3
         with:
-          version: latest
+          terraform_version: "1.1.7"
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
           
       
 
