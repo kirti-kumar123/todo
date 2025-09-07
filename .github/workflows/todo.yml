@@ -37,7 +37,7 @@ jobs:
         working-directory: todoapp_infra
         run: |
           echo "Running terraform plan..."
-          terraform plan -no-color | tee plan.txt
+          terraform plan -no-color | Tee-Object -FilePath plan.txt
      
       
 
