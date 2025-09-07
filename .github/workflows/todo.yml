@@ -4,5 +4,9 @@ jobs:
   test:
     runs-on: [self-hosted, kirti]
     steps:
-    - run: echo Hello world!
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+
+   
+    
 
