@@ -35,8 +35,9 @@ jobs:
       - name: Terraform Plan
         id: plan
         working-directory: todoapp_infra
-        run: terraform plan 
-        # continue-on-error: true
+        run: |
+          echo "Running terraform plan..."
+          terraform plan -no-color | tee plan.txt
      
       
 
